@@ -2,7 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
+
 import authRoutes from './routes/authRoutes.js';
+import channelRoutes from "./routes/channelRoutes.js"
+import videoRoutes from './routes/videoRoutes.js';
 
 dotenv.config();
 
@@ -17,7 +20,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
-app.use("/api/")
+app.use("/api/channel", channelRoutes)
+app.use('/api/videos', videoRoutes);
+
 
 
 // Test route
