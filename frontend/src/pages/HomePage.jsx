@@ -1,26 +1,16 @@
-// src/pages/HomePage.jsx
 import { useState } from "react";
 import VideoCard from "../components/VideoCard";
-
-const sampleVideos = [
-  {
-    videoId: "video01",
-    title: "Learn React in 30 Minutes",
-    thumbnailUrl: "https://example.com/thumbnails/react30min.png",
-    channelName: "Code With John",
-    channelAvatar: "https://example.com/avatar/john.png",
-    views: 15200,
-  },
-  // Add more sample videos similarly
-];
+import { sampleVideos } from "../../sampleVideo.js";
+import { Link } from "react-router-dom";
 
 const filters = ["All", "Music", "Gaming", "News", "Sports", "Education"];
 
-export default function HomePage() {
+export default function HomePage({ setSidebarMode }) {
   const [activeFilter, setActiveFilter] = useState("All");
 
   return (
     <div className="p-4">
+      {/* Filter buttons */}
       <div className="flex space-x-4 overflow-x-auto mb-5">
         {filters.map((filter) => (
           <button
@@ -36,9 +26,17 @@ export default function HomePage() {
           </button>
         ))}
       </div>
+
+      {/* Video grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {sampleVideos.map((video) => (
-          <VideoCard key={video.videoId} video={video} />
+          <Link
+            key={video.videoId}
+            to={`/video/${video.videoId}`}
+            onClick={() => setSidebarMode("hidden")} // hide sidebar when video opens
+          >
+            <VideoCard video={video} />
+          </Link>
         ))}
       </div>
     </div>
